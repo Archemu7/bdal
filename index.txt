@@ -200,7 +200,7 @@ plt.show()
 -------------------------------------------------------------------------------------------
 
 '''
-10. download the iris flower dataset or any other dataset into a dataframe. 
+download the iris flower dataset or any other dataset into a dataframe. 
 scan the dataset and give the inference as:
 1) list down the features and their types (ex: numeric, nominal) available in the dataset
 2) create a histogram for each feature in the dataset to illustrate the feature distributions
@@ -246,12 +246,203 @@ print("4. Species is a categorical feature.")
 
 
 ----------------------------------------------------------------------------------------------------------------
+# 1. Line Plot
 
-Plot Type	Syntax	Use Case
-Line Plot	plt.plot(x, y)	Shows trends or changes over time
-Histogram	plt.hist(data, bins=10)	Shows frequency distribution of numerical data
-Scatter Plot	plt.scatter(x, y)	Shows relationship between two variables
-Bar Chart	plt.bar(x, y)	Compares categories using vertical bars
-Horizontal Bar Chart	plt.barh(x, y)	Same as bar chart but horizontal
-Pie Chart	plt.pie(data, labels=labels)	Shows percentage contribution of categories
-Box Plot	plt.boxplot(data)	Detects outliers and shows distribution
+## Code
+
+```python id="x5qdr1"
+import matplotlib.pyplot as plt
+
+x = [1,2,3,4,5]
+y = [10,20,25,30,40]
+
+plt.plot(x,y)
+plt.title("Line Plot")
+plt.xlabel("Time")
+plt.ylabel("Sales")
+plt.show()
+```
+
+## Relationship Shown
+
+Relationship between:
+
+* time and sales
+
+## Use Case
+
+Used to show trends or changes over time.
+
+---
+
+# 2. Histogram
+
+## Code
+
+```python id="4tb2u0"
+import matplotlib.pyplot as plt
+
+marks = [45,50,55,60,65,70,75,80,85,90]
+
+plt.hist(marks, bins=5)
+plt.title("Histogram")
+plt.xlabel("Marks")
+plt.ylabel("Frequency")
+plt.show()
+```
+
+## Relationship Shown
+
+Relationship between:
+
+* value ranges and frequency
+
+## Use Case
+
+Used to show distribution of numerical data.
+
+---
+
+# 3. Scatter Plot
+
+## Code
+
+```python id="r0ll6l"
+import matplotlib.pyplot as plt
+
+x = [1,2,3,4,5]
+y = [2,4,5,4,5]
+
+plt.scatter(x,y)
+plt.title("Scatter Plot")
+plt.xlabel("Study Hours")
+plt.ylabel("Marks")
+plt.show()
+```
+
+## Relationship Shown
+
+Relationship between:
+
+* study hours and marks
+
+## Use Case
+
+Used to identify correlation between two variables.
+
+---
+
+# 4. Bar Chart
+
+## Code
+
+```python id="r67cy1"
+import matplotlib.pyplot as plt
+
+students = ['A','B','C','D']
+marks = [80,65,90,75]
+
+plt.bar(students, marks)
+plt.title("Bar Chart")
+plt.xlabel("Students")
+plt.ylabel("Marks")
+plt.show()
+```
+
+## Relationship Shown
+
+Relationship between:
+
+* categories and values
+
+## Use Case
+
+Used for comparison between categories.
+
+---
+
+# 5. Horizontal Bar Chart
+
+## Code
+
+```python id="jl4d7j"
+import matplotlib.pyplot as plt
+
+students = ['A','B','C','D']
+marks = [80,65,90,75]
+
+plt.barh(students, marks)
+plt.title("Horizontal Bar Chart")
+plt.xlabel("Marks")
+plt.ylabel("Students")
+plt.show()
+```
+
+## Relationship Shown
+
+Relationship between:
+
+* categories and values
+
+## Use Case
+
+Used when category names are long or for better readability.
+
+---
+
+# 6. Pie Chart
+
+## Code
+
+```python id="r0xxes"
+import matplotlib.pyplot as plt
+
+sizes = [40,30,20,10]
+labels = ['Python','Java','C++','JavaScript']
+
+plt.pie(sizes, labels=labels)
+plt.title("Pie Chart")
+plt.show()
+```
+
+## Relationship Shown
+
+Relationship between:
+
+* categories and percentage contribution
+
+## Use Case
+
+Used to show proportion or percentage share.
+
+---
+
+# 7. Box Plot
+
+## Code
+
+```python id="q7v4kg"
+import matplotlib.pyplot as plt
+
+data = [10,20,25,30,35,40,100]
+
+plt.boxplot(data)
+plt.title("Box Plot")
+plt.show()
+```
+
+## Relationship Shown
+
+Relationship between:
+
+* data distribution and spread
+
+## Use Case
+
+Used to detect:
+
+* outliers
+* median
+* quartiles
+* spread of data
+
