@@ -1,0 +1,257 @@
+"""
+Group A - 1: Data Wrangling, I
+Perform operations using Python on any open source dataset:
+1. Import all required libraries.
+2. Locate open source data from the web.
+3. Load the Dataset into pandas dataframe.
+4. Data Preprocessing: check missing values, describe(), types of variables, dimensions.
+5. Data Formatting and Normalization: summarize types, apply type conversions.
+6. Turn categorical variables into quantitative variables in Python.
+"""
+
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv("iris.csv")
+
+df.head
+
+df.tail()
+
+df.shape
+
+df.columns
+
+df.dtypes
+
+df.isnull()
+
+df.isnull().sum()
+
+df.describe()
+
+df.head(10)
+
+df['species']=df['species'].map({'setosa':1,'virginica':2})
+
+df.index
+
+df[df['species']==0]
+
+df.columns.values
+
+df.describe(include='all')
+
+df = pd.get_dummies(df,columns=['species'])
+
+---------------------------------------------------------------------
+
+"""
+Group A - 2: Data Wrangling II
+Create an "Academic performance" dataset and perform:
+1. Scan all variables for missing values and inconsistencies. Deal with them.
+2. Scan all numeric variables for outliers. Deal with them.
+3. Apply data transformations (e.g., to change scale, decrease skewness).
+"""
+
+import pandas as pd
+df = pd.read_csv(r"/home/comp-proj-57/Downloads/archive(2)/iris.csv")
+df.head()
+df.describe()
+df.isnull()
+df.isnull().sum()
+df[df.isnull().any(axis=1)]
+df[df['sepal_length'].isnull()]
+df.dropna(axis=0,inplace=True)
+df['species']=df['species'].map({'setosa':0, 'versicolor':1, 'virginica':2})
+df.head(10)
+df.tail(10)
+df.head(150)
+df['species'].fillna(df['species'].mean())
+df[df['species']==0]
+df[(df['species']<0)|(df['species']>1)]
+df[(df['sepal_length']<5)|(df['sepal_length']>6)]
+q1=df['sepal_length'].quantile(0.25)
+q3=df['sepal_length'].quantile(0.75)
+iqr=q3-q1
+outlier=df[(df['sepal_length']<(q1-1.5*iqr))|(df['sepal_length']>(q3+1.5*iqr))]
+outlier.shape
+df['sepal_length'].skew()
+df['sepal_length'].hist()
+
+--------------------------------------------------------------------------------
+
+"""
+Group A - 3: Descriptive Statistics
+1. Summary statistics grouped by a qualitative variable.
+2. Basic statistical details of Iris dataset species.
+"""
+
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv("/home/comp-pl-22/Downloads/archive/Iris.csv")
+
+df.shape
+
+df.head()
+
+df.describe()
+
+df.info()
+
+df.min()
+
+df['SepalLengthCm'].min()
+
+df.max()
+
+df['PetalLengthCm'].max()
+
+df.mean()
+
+df.median()
+
+df.std()
+
+df.isnull()
+
+df.notnull()
+
+df.groupby('Species')['SepalLengthCm'].agg(['mean','median','min','max','std'])
+
+
+---------------------------------------------------------------------------------------------
+
+
+"""
+Group A - 8: Data Visualization I
+1. Use the inbuilt dataset 'titanic'. Use Seaborn library to see if we can find any patterns in the data.
+2. Write a code to check how the price of the ticket (column name: 'fare') for each passenger is distributed by plotting a histogram.
+"""
+
+import pandas as pd
+import seaborn as sb
+import matplotlib.pyplot as plt
+
+df = sb.load_dataset("titanic")
+df.head()
+
+df.info()
+
+df.describe()
+
+df.isnull().sum()
+
+sb.countplot(x='survived', data=df)
+plt.title("Survival Count")
+plt.show()
+
+sb.countplot(x='sex', hue='survived', data=df)
+plt.title("Survival by gender")
+plt.show()
+
+sb.countplot(x='pclass', hue='survived', data=df)
+plt.title("Survival by Passenger Class")
+plt.show()
+
+plt.hist(df['fare'].dropna(), bins=20)
+plt.title("Distribution of Fare")
+plt.xlabel("Fare")
+plt.ylabel("Frequency")
+plt.show()
+
+--------------------------------------------------------------------------------------------
+
+
+"""
+Group A - 9: Data Visualization II
+1. Use the inbuilt dataset 'titanic'. Plot a box plot for distribution of age with respect to each gender along with the information about whether they survived or not.
+2. Write observations on the inference from the above statistics.
+"""
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load Titanic dataset
+df = sns.load_dataset("titanic")
+
+# Display first 5 rows
+print(df.head())
+
+# Check missing values in age column
+print(df['age'].isnull().sum())
+
+# Remove rows with missing age values
+df = df.dropna(subset=['age'])
+
+# Check remaining missing values
+print(df.isnull().sum())
+
+# Boxplot
+sns.boxplot(x='sex', y='age', hue='survived', data=df)
+
+# Title
+plt.title("Age Distribution by Gender and Survival")
+
+# Show plot
+plt.show()
+
+-------------------------------------------------------------------------------------------
+
+'''
+10. download the iris flower dataset or any other dataset into a dataframe. 
+scan the dataset and give the inference as:
+1) list down the features and their types (ex: numeric, nominal) available in the dataset
+2) create a histogram for each feature in the dataset to illustrate the feature distributions
+3) create a boxplot for each feature in the dataset
+4) compare distributions and identify outliers
+'''
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load dataset
+df = sns.load_dataset("iris")
+
+# Display first 5 rows
+print(df.head())
+
+# 1) List features and their types
+print("\nFeatures and their types:")
+
+for col in df.columns:
+    if df[col].dtype == 'object':
+        print(col, "-> Nominal/Categorical")
+    else:
+        print(col, "-> Numeric")
+
+# 2) Histogram for each feature
+df.hist(bins=15, figsize=(10,8))
+plt.suptitle("Histogram of Iris Features")
+plt.show()
+
+# 3) Boxplot for each numeric feature
+plt.figure(figsize=(10,6))
+sns.boxplot(data=df.select_dtypes(include=['float64', 'int64']))
+plt.title("Boxplot of Iris Features")
+plt.show()
+
+# 4) Inference / Outlier Detection
+print("\nInference:")
+print("1. Most features show normal distribution.")
+print("2. Sepal width contains some outliers.")
+print("3. Petal length and petal width show wider variation.")
+print("4. Species is a categorical feature.")
+
+
+----------------------------------------------------------------------------------------------------------------
+
+Plot Type	Syntax	Use Case
+Line Plot	plt.plot(x, y)	Shows trends or changes over time
+Histogram	plt.hist(data, bins=10)	Shows frequency distribution of numerical data
+Scatter Plot	plt.scatter(x, y)	Shows relationship between two variables
+Bar Chart	plt.bar(x, y)	Compares categories using vertical bars
+Horizontal Bar Chart	plt.barh(x, y)	Same as bar chart but horizontal
+Pie Chart	plt.pie(data, labels=labels)	Shows percentage contribution of categories
+Box Plot	plt.boxplot(data)	Detects outliers and shows distribution
